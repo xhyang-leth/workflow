@@ -20,6 +20,6 @@ jobs:
 
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
-        with:
-           base-ref: ${{ github.event.inputs.branch_name }}
-           head-ref: ${{ github.event.inputs.branch_name }}
+        #with:
+          # base-ref: ${{ github.event.inputs.branch_name }}
+           #head-ref: ${{ github.event.inputs.branch_name }}
