@@ -1,0 +1,22 @@
+name: Manual Dependency Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Branch to scan'
+        required: true
+        default: 'main'
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch_name }}
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
