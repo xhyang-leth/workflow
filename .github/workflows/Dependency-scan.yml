@@ -17,9 +17,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch_name }}
-
-      - name: Dependency Review
+          fetch-depth: 0
+          
+      - name: Dependency Review vs Main
         uses: actions/dependency-review-action@v4
-        #with:
-          # base-ref: ${{ github.event.inputs.branch_name }}
-           #head-ref: ${{ github.event.inputs.branch_name }}
+        with:
+          base-ref: 'main'
+          head-ref: ${{ github.event.inputs.branch_name }}
+          
