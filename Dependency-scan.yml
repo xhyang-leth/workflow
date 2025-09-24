@@ -1,0 +1,28 @@
+name: Dependency scan (manual / release)
+
+on:
+  workflow_dispatch:     # manual run from Actions tab or GitHub CLI
+  release:
+    types: [published]   # runs automatically when a release is published (optional)
+
+jobs:
+  dependency_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run OWASP Dependency-Check (SCA)
+        uses: dependency-check/dependency-check-action@v2   # example action; adapt to your tool
+        with:
+          format: 'ALL'          # html,json,sarif,... adjust as needed
+          project: ${{ github.repository }}
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-reports
+          path: |
+            dependency-check-report.*    # change to actual output path
